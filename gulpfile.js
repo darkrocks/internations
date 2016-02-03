@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 var webpack = require('gulp-webpack');
 
 gulp.task('webpack', function() {
@@ -14,3 +16,10 @@ gulp.task('copy', function () {
 });
 
 gulp.task('build', ['webpack', 'copy']);
+
+gulp.task('watch', function () {
+  watch('src/client/**/*', batch(function (events, done) {
+    gulp.start('build', done);
+  }));
+});
+

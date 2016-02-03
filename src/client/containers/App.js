@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Explore from '../components/Explore'
 import { resetErrorMessage } from '../actions'
+import '../style/style.css'
 
 class App extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class App extends Component {
         <Explore value={inputValue}
                  onChange={this.handleChange} />
         <hr />
+        <div className='red'>This should be red</div>
         {this.renderErrorMessage()}
         {children}
       </div>
