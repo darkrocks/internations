@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Redux real-world example",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -37,11 +37,11 @@
     "babel-preset-react-hmre": "^1.0.1",
     "concurrently": "^0.1.1",
     "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-webpack": "^1.5.0",
     "redux-devtools": "^3.0.2",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
-    "webpack": "^1.9.11",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.2.0"
+    "webpack": "^1.9.11"
   }
 }
