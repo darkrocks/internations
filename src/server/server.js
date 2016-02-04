@@ -4,10 +4,6 @@ var port = 3000
 
 app.use(express.static(__dirname + '/../../build'));
 
-app.use(function(req, res) {
-  res.sendFile(__dirname + '/../../build/index.html')
-})
-
 app.listen(port, function(error) {
   if (error) {
     console.error(error)

@@ -4,7 +4,7 @@ var batch = require('gulp-batch');
 var webpack = require('gulp-webpack');
 
 gulp.task('webpack', function() {
-  return gulp.src('src/client/index.js')
+  return gulp.src('src/client/app/index.js')
     .pipe(webpack( require('./webpack.config.js') ))
     .pipe(gulp.dest('build/'));
 });
