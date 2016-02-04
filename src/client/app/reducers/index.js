@@ -46,10 +46,30 @@ const pagination = combineReducers({
   })
 })
 
+function groups(state = [], action) {
+  switch (action.type) {
+    case ActionTypes.RECEIVE_GROUPS:
+      return action.groups;
+  }
+
+  return state
+}
+
+function groupDetails(state = null, action) {
+  switch (action.type) {
+    case ActionTypes.RECEIVE_GROUP_DETAILS:
+      return action.groupDetails;
+  }
+
+  return state
+}
+
 const rootReducer = combineReducers({
   entities,
   pagination,
   errorMessage,
+  groups,
+  groupDetails,
   routing: routeReducer
 })
 

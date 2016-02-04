@@ -139,23 +139,37 @@ export function resetErrorMessage() {
 
 
 ///////////////////////////////////////////////
-import { getGroups } from '../data'
+import { getGroups, getGroupsDetails } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
-
-let stub
+export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
 
 function receiveGroups(groups) {
   return {
     type: RECEIVE_GROUPS,
-    posts: groups
+    groups: groups
   }
 }
 
-function fetchGroups(reddit) {
+export function fetchGroups() {
   return dispatch => {
     //dispatch(requestPosts(reddit))
-    return getGroups
+    return getGroups()
       .then(groups => dispatch(receiveGroups(groups)))
+  }
+}
+
+function receiveGroupDetails(group) {
+  return {
+    type: RECEIVE_GROUP_DETAILS,
+    groupDetails: group
+  }
+}
+
+export function fetchGroupDetails(groupId) {
+  return dispatch => {
+    //dispatch(requestPosts(reddit))
+    return getGroupsDetails(groupId)
+      .then(group => dispatch(receiveGroupDetails(group)))
   }
 }

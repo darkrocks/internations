@@ -54,8 +54,8 @@ class App extends Component {
     return (
       <div>
         <div>
-          <div onClick={this.onGroupsClick}>Groups</div>
-          <div>Users</div>
+          <button onClick={this.onGroupsClick}>Groups</button>
+          <button>Users</button>
 
         </div>
         <Explore value={inputValue}

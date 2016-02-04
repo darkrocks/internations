@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { fetchGroups } from '../actions'
+import { Link } from 'react-router'
 
 class GroupsPage extends Component {
   constructor(props) {
     super(props)
+
+    this.navigateToGroupPage = this.navigateToGroupPage.bind(this)
+  }
+
+  navigateToGroupPage(groupId) {
+    this.props.push(`/groups/${groupId}`)
   }
 
   componentWillMount() {
@@ -26,7 +34,11 @@ class GroupsPage extends Component {
             {this.props.groups.map((group) => {
               return (
                 <tr>
-                  <td>{group.name}</td>
+                  <td>
+                    <Link to={`/groups/${group.id}`}>
+                      {group.name}
+                    </Link>
+                  </td>
                   <td>{group.users.length + 1}</td>
                 </tr>
               )
@@ -50,7 +62,8 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchGroups
+  fetchGroups,
+  push
 })(GroupsPage)
 
 
