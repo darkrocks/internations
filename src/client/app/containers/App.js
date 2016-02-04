@@ -10,6 +10,7 @@ class App extends Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleDismissClick = this.handleDismissClick.bind(this)
+    this.onGroupsClick = this.onGroupsClick.bind(this)
   }
 
   handleDismissClick(e) {
@@ -19,6 +20,10 @@ class App extends Component {
 
   handleChange(nextValue) {
     this.props.push(`/${nextValue}`)
+  }
+
+  onGroupsClick () {
+    this.handleChange('groups')
   }
 
   renderErrorMessage() {
@@ -40,9 +45,19 @@ class App extends Component {
   }
 
   render() {
+
+    function onGroupsClick (){
+      this.handleChange('groups')
+    }
+
     const { children, inputValue } = this.props
     return (
       <div>
+        <div>
+          <div onClick={this.onGroupsClick}>Groups</div>
+          <div>Users</div>
+
+        </div>
         <Explore value={inputValue}
                  onChange={this.handleChange} />
         <hr />

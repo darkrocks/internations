@@ -1,8 +1,14 @@
-var express = require('express');
+var express = require('express')
+
+var path = require('path');
 var app = new express()
 var port = 3000
 
-app.use(express.static(__dirname + '/../../build'));
+app.use(express.static(__dirname + '/../../build/'));
+
+app.get(/^(.*)$/, function(req, res, next) {
+  res.sendfile(path.resolve(__dirname + '/../../build/index.html'));
+})
 
 app.listen(port, function(error) {
   if (error) {
@@ -11,3 +17,4 @@ app.listen(port, function(error) {
     console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
   }
 })
+
