@@ -139,11 +139,12 @@ export function resetErrorMessage() {
 
 
 ///////////////////////////////////////////////
-import { getGroups, getGroupDetails, getUserDetails } from '../data'
+import { getGroups, getGroupDetails, getUsers, getUserDetails } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
+export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 function receiveGroups(groups) {
   return {
@@ -172,6 +173,21 @@ export function fetchGroupDetails(groupId) {
     //dispatch(requestPosts(reddit))
     return getGroupDetails(groupId)
       .then(group => dispatch(receiveGroupDetails(group)))
+  }
+}
+
+function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users: users
+  }
+}
+
+export function fetchUsers() {
+  return dispatch => {
+    //dispatch(requestPosts(reddit))
+    return getUsers()
+      .then(users => dispatch(receiveUsers(users)))
   }
 }
 

@@ -9,6 +9,7 @@ class App extends Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.onGroupsClick = this.onGroupsClick.bind(this)
+    this.onUsersClick = this.onUsersClick.bind(this)
   }
 
 
@@ -20,13 +21,17 @@ class App extends Component {
     this.handleChange('groups')
   }
 
+  onUsersClick () {
+    this.handleChange('users')
+  }
+
   render() {
     const { children} = this.props
     return (
       <div>
         <div>
           <button onClick={this.onGroupsClick}>Groups</button>
-          <button>Users</button>
+          <button onClick={this.onUsersClick}>Users</button>
         </div>
         {children}
       </div>

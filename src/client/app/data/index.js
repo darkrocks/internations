@@ -57,6 +57,12 @@ export function getGroupDetails(groupId) {
   })
 }
 
+export function getUsers() {
+  return new Promise((resolve, reject) => {
+    resolve(users);
+  })
+}
+
 export function getUserDetails(userId) {
   userId = parseInt(userId)
 
