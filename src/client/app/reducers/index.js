@@ -64,12 +64,22 @@ function groupDetails(state = null, action) {
   return state
 }
 
+function userDetails(state = null, action) {
+  switch (action.type) {
+    case ActionTypes.RECEIVE_USER_DETAILS:
+      return action.userDetails;
+  }
+
+  return state
+}
+
 const rootReducer = combineReducers({
   entities,
   pagination,
   errorMessage,
   groups,
   groupDetails,
+  userDetails,
   routing: routeReducer
 })
 

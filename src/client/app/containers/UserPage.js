@@ -1,98 +1,60 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadUser, loadStarred } from '../actions'
-import User from '../components/User'
-import Repo from '../components/Repo'
-import List from '../components/List'
-import zip from 'lodash/zip'
-
-function loadData(props) {
-  const { login } = props
-  props.loadUser(login, [ 'name' ])
-  props.loadStarred(login)
-}
+import { push } from 'react-router-redux'
+import { fetchUserDetails } from '../actions'
+import { Link } from 'react-router'
 
 class UserPage extends Component {
   constructor(props) {
     super(props)
-    this.renderRepo = this.renderRepo.bind(this)
-    this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this)
   }
 
   componentWillMount() {
-    loadData(this.props)
+    this.props.fetchUserDetails(this.props.userId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.login !== this.props.login) {
-      loadData(nextProps)
-    }
-  }
+  renderGroups() {
+    if (!this.props.user) return null;
 
-  handleLoadMoreClick() {
-    this.props.loadStarred(this.props.login, true)
-  }
-
-  renderRepo([ repo, owner ]) {
-    return (
-      <Repo repo={repo}
-            owner={owner}
-            key={repo.fullName} />
-    )
+    return this.props.user.groups.map((group) => {
+      return (
+        <span>
+          <Link to={`/groups/${group.id}`}>
+            {group.name}
+          </Link>,</span>
+      )
+    });
   }
 
   render() {
-    const { user, login } = this.props
-    if (!user) {
-      return <h1><i>Loading {login}’s profile...</i></h1>
-    }
+    let name = this.props.user ? this.props.user.name : '';
+    console.log('user render: ' + JSON.stringify(this.props.user))
 
-    const { starredRepos, starredRepoOwners, starredPagination } = this.props
     return (
       <div>
-        <User user={user} />
-        <hr />
-        <List renderItem={this.renderRepo}
-              items={zip(starredRepos, starredRepoOwners)}
-              onLoadMoreClick={this.handleLoadMoreClick}
-              loadingLabel={`Loading ${login}’s starred...`}
-              {...starredPagination} />
+        <div><span>Name: </span><span>{name}</span></div>
+        <div><span>Groups: </span>
+          {this.renderGroups()}
+        </div>
       </div>
     )
   }
 }
 
 UserPage.propTypes = {
-  login: PropTypes.string.isRequired,
-  user: PropTypes.object,
-  starredPagination: PropTypes.object,
-  starredRepos: PropTypes.array.isRequired,
-  starredRepoOwners: PropTypes.array.isRequired,
-  loadUser: PropTypes.func.isRequired,
-  loadStarred: PropTypes.func.isRequired
+  fetchUserDetails: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state, props) {
-  const { login } = props.params
-  const {
-    pagination: { starredByUser },
-    entities: { users, repos }
-  } = state
-
-  const starredPagination = starredByUser[login] || { ids: [] }
-  const starredRepos = starredPagination.ids.map(id => repos[id])
-  const starredRepoOwners = starredRepos.map(repo => users[repo.owner])
-
   return {
-    login,
-    starredRepos,
-    starredRepoOwners,
-    starredPagination,
-    user: users[login]
+    user: state.userDetails,
+    userId:  props.params.userId
   }
 }
 
 export default connect(mapStateToProps, {
-  loadUser,
-  loadStarred
+  fetchUserDetails,
+  push
 })(UserPage)
+
+

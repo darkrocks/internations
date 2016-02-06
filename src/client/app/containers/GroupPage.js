@@ -2,14 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { fetchGroupDetails } from '../actions'
-
+import { Link } from 'react-router'
 
 class GroupPage extends Component {
   constructor(props) {
     super(props)
 
   }
-
 
   componentWillMount() {
     this.props.fetchGroupDetails(this.props.groupId);
@@ -20,7 +19,10 @@ class GroupPage extends Component {
 
     return this.props.group.users.map((user) => {
       return (
-        <span>{user.name},</span>
+        <span>
+          <Link to={`/users/${user.id}`}>
+            {user.name}
+          </Link>,</span>
       )
     });
   }
@@ -47,7 +49,6 @@ GroupPage.propTypes = {
 }
 
 function mapStateToProps(state, props) {
-
   return {
     group: state.groupDetails,
     groupId:  props.params.groupId

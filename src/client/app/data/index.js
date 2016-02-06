@@ -1,4 +1,5 @@
 import find from 'lodash/find'
+import cloneDeep from 'lodash/cloneDeep'
 
 let groups = [
   {
@@ -36,12 +37,12 @@ export function getGroups() {
   })
 }
 
-export function getGroupsDetails(groupId) {
+export function getGroupDetails(groupId) {
   groupId = parseInt(groupId)
-  console.log('getGroupsDetails ' + groupId);
+
   return new Promise((resolve, reject) => {
-    console.log('find ' + find);
-    var group = find(groups, (g) => g.id === groupId);
+
+    var group = cloneDeep(find(groups, (g) => g.id === groupId));
     if (group) {
       group.users = group.users.map((userId) => {
         var user = find(users, (u) => u.id === userId);
@@ -51,7 +52,28 @@ export function getGroupsDetails(groupId) {
         return null;
       });
     }
-    console.log('getGroupsDetails res ' + JSON.stringify(group));
+
     resolve(group);
+  })
+}
+
+export function getUserDetails(userId) {
+  userId = parseInt(userId)
+
+  return new Promise((resolve, reject) => {
+    var user = cloneDeep(find(users, (u) => u.id === userId));
+
+    if (user) {
+      user.groups = [];
+      groups.forEach((g) => {
+        if (find(g.users, (groupUserId) => groupUserId === userId)) {
+          var groupToAdd = cloneDeep(g);
+          delete groupToAdd.users;
+          user.groups.push(groupToAdd);
+        }
+      });
+    }
+
+    resolve(user);
   })
 }
