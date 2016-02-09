@@ -35,7 +35,7 @@ class AddUserPage extends Component {
     return (
       <div>
         <h1>Add user</h1>
-        <EditUserForm user={newUser} save={this.addUser} saveButtonText='Save user' allGroups={this.props.allGroups}/>
+        <EditUserForm user={newUser} save={this.addUser} saveButtonText='Add' allGroups={this.props.allGroups}/>
       </div>
     )
   }

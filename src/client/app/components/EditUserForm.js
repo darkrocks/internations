@@ -9,10 +9,13 @@ class EditUserForm extends Component {
   constructor(props) {
     super(props)
 
+    this.saveButtonClicked = false;
+
     this.state = {
       name: this.props.user.name,
       groups: this.props.user.groups,
       selectedGroupId: null,
+      saveButtonClicked: false,
       validation: {
         name: true,
         groups: true
@@ -35,8 +38,11 @@ class EditUserForm extends Component {
 
   userNameChanged(event) {
     this.setState({
-      name: event.target.value,
-      validation: this.getValidationState()
+      name: event.target.value
+    }, () => {
+      this.setState({
+        validation: this.getValidationState()
+      });
     });
   }
 
@@ -45,6 +51,7 @@ class EditUserForm extends Component {
   }
 
   save() {
+    this.saveButtonClicked = true;
     if (this.isFormValid()) {
       this.props.save(this.state.name, this.state.groups);
     }
@@ -63,8 +70,10 @@ class EditUserForm extends Component {
       groups: true
     };
 
-    if (!this.state.name) validation.name = false;
-    if (!this.state.groups.length) validation.groups = false;
+    if (this.saveButtonClicked) {
+      if (!this.state.name) validation.name = false;
+      if (!this.state.groups.length) validation.groups = false;
+    }
 
     return validation;
   }
@@ -78,8 +87,11 @@ class EditUserForm extends Component {
       var groups = this.state.groups;
       groups.push(groupToAdd);
       this.setState({
-        groups: groups,
-        validation: this.getValidationState()
+        groups: groups
+      }, () => {
+        this.setState({
+          validation: this.getValidationState()
+        });
       });
     }
   }
