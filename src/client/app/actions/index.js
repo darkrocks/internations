@@ -213,6 +213,8 @@ function userAdded() {
 }
 
 export function addUser(user) {
+  console.log('add user: ' + JSON.stringify(user));
+
   return dispatch => {
     return insertUser(user)
       .then(user => dispatch(userAdded(user)))
