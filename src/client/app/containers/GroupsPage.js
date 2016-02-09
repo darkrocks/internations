@@ -7,12 +7,6 @@ import { Link } from 'react-router'
 class GroupsPage extends Component {
   constructor(props) {
     super(props)
-
-    this.navigateToGroupPage = this.navigateToGroupPage.bind(this)
-  }
-
-  navigateToGroupPage(groupId) {
-    this.props.push(`/groups/${groupId}`)
   }
 
   componentWillMount() {

@@ -83,3 +83,21 @@ export function getUserDetails(userId) {
     resolve(user);
   })
 }
+
+export function insertUser (user) {
+  return new Promise((resolve, reject) => {
+    var userToAdd = {
+      id: Math.floor(Math.random()* 1000),
+      name: user.name
+    };
+
+    users.push(userToAdd);
+
+    user.groups.forEach((userGroup) => {
+      var groupToAmmend = find(groups, (g) => g.id === userGroup.id);
+      groupToAmmend.users.push(userToAdd.id);
+    });
+    resolve(userToAdd);
+  })
+}
+

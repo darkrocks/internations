@@ -139,13 +139,13 @@ export function resetErrorMessage() {
 
 
 ///////////////////////////////////////////////
-import { getGroups, getGroupDetails, getUsers, getUserDetails } from '../data'
+import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
-
+export const USER_ADDED = 'USER_ADDED'
 function receiveGroups(groups) {
   return {
     type: RECEIVE_GROUPS,
@@ -205,3 +205,17 @@ export function fetchUserDetails(userId) {
       .then(user => dispatch(receiveUserDetails(user)))
   }
 }
+
+function userAdded() {
+  return {
+    type: USER_ADDED
+  }
+}
+
+export function addUser(user) {
+  return dispatch => {
+    return insertUser(user)
+      .then(user => dispatch(userAdded(user)))
+  }
+}
+

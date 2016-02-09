@@ -22,6 +22,9 @@ class UsersPage extends Component {
   render() {
     return (
       <div>
+        <Link to={`/users/add`}>
+          Add user
+        </Link>
         Users
         <table>
           <thead>
