@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { addUser, fetchGroups } from '../actions'
 import { Link } from 'react-router'
-import find from 'lodash/find'
+import { find, filter } from 'lodash'
 
 class EditUserForm extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class EditUserForm extends Component {
     this.userNameChanged = this.userNameChanged.bind(this)
     this.selectGroupChanged = this.selectGroupChanged.bind(this)
     this.addToGroup = this.addToGroup.bind(this)
+    this.removeFromGroup = this.removeFromGroup.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -86,14 +87,23 @@ class EditUserForm extends Component {
 
       var groups = this.state.groups;
       groups.push(groupToAdd);
-      this.setState({
-        groups: groups
-      }, () => {
-        this.setState({
-          validation: this.getValidationState()
-        });
-      });
+      this.setStateForGroups(groups);
     }
+  }
+
+  removeFromGroup(groupId) {
+    var newGroups = filter(this.state.groups, (group) => group.id !== groupId);
+    this.setStateForGroups(newGroups);
+  }
+
+  setStateForGroups(groups) {
+    this.setState({
+      groups: groups
+    }, () => {
+      this.setState({
+        validation: this.getValidationState()
+      });
+    });
   }
 
   renderGroupsSelector() {
@@ -113,17 +123,38 @@ class EditUserForm extends Component {
   }
 
   renderGroups() {
+    const that = this;
     if (!this.state.groups.length) return null;
 
-    return this.state.groups.map((group) => {
-      return (
-        <span>
-            {group.name},
-        </span>
-      )
-    });
-  }
+    return (
+      <div>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Users</th>
+          </tr>
+          </thead>
+          <tbody>
+          {this.state.groups.map((group) => {
+            function remove () {
+              that.removeFromGroup(group.id);
+            }
 
+            return (
+              <tr>
+                <td>
+                    {group.name}
+                </td>
+                <td><button onClick={remove}>Remove</button></td>
+              </tr>
+            )
+          })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 
   render() {
     return (
