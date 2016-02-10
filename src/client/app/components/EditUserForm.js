@@ -12,10 +12,8 @@ class EditUserForm extends Component {
     this.saveButtonClicked = false;
 
     this.state = {
-      name: this.props.user.name,
-      groups: this.props.user.groups,
+      user: null,
       selectedGroupId: null,
-      saveButtonClicked: false,
       validation: {
         name: true,
         groups: true
@@ -35,11 +33,20 @@ class EditUserForm extends Component {
         selectedGroupId: newProps.allGroups[0].id
       })
     }
+    
+    if (this.state.user === null && newProps.user ) {
+      this.setState({
+        user: newProps.user
+      });
+    }
   }
 
   userNameChanged(event) {
+    var user = this.state.user;
+    user.name = event.target.value;
+
     this.setState({
-      name: event.target.value
+      user: user
     }, () => {
       this.setState({
         validation: this.getValidationState()
@@ -54,7 +61,7 @@ class EditUserForm extends Component {
   save() {
     this.saveButtonClicked = true;
     if (this.isFormValid()) {
-      this.props.save(this.state.name, this.state.groups);
+      this.props.save(this.state.user.name, this.state.user.groups);
     }
     else {
       this.setState({validation: this.getValidationState()});
@@ -62,7 +69,7 @@ class EditUserForm extends Component {
   }
 
   isFormValid() {
-    return this.state.name && this.state.groups.length;
+    return this.state.user.name && this.state.user.groups.length;
   }
 
   getValidationState() {
@@ -72,33 +79,37 @@ class EditUserForm extends Component {
     };
 
     if (this.saveButtonClicked) {
-      if (!this.state.name) validation.name = false;
-      if (!this.state.groups.length) validation.groups = false;
+      if (!this.state.user.name) validation.name = false;
+      if (!this.state.user.groups.length) validation.groups = false;
     }
 
     return validation;
   }
 
   addToGroup() {
-    const isInGroup = find(this.state.groups, (g) => g.id === this.state.selectedGroupId);
+    const isInGroup = find(this.state.user.groups, (g) => g.id === this.state.selectedGroupId);
 
     if (!isInGroup) {
       var groupToAdd = find(this.props.allGroups, (g) => g.id === this.state.selectedGroupId);
 
-      var groups = this.state.groups;
+      var groups = this.state.user.groups;
       groups.push(groupToAdd);
+
       this.setStateForGroups(groups);
     }
   }
 
   removeFromGroup(groupId) {
-    var newGroups = filter(this.state.groups, (group) => group.id !== groupId);
+    var newGroups = filter(this.state.user.groups, (group) => group.id !== groupId);
     this.setStateForGroups(newGroups);
   }
 
   setStateForGroups(groups) {
+    var user = this.state.user;
+    user.groups = groups;
+
     this.setState({
-      groups: groups
+      user: user
     }, () => {
       this.setState({
         validation: this.getValidationState()
@@ -124,7 +135,7 @@ class EditUserForm extends Component {
 
   renderGroups() {
     const that = this;
-    if (!this.state.groups.length) return null;
+    if (!this.state.user.groups.length) return null;
 
     return (
       <div>
@@ -136,7 +147,7 @@ class EditUserForm extends Component {
           </tr>
           </thead>
           <tbody>
-          {this.state.groups.map((group) => {
+          {this.state.user.groups.map((group) => {
             function remove () {
               that.removeFromGroup(group.id);
             }
@@ -157,11 +168,13 @@ class EditUserForm extends Component {
   }
 
   render() {
+    if (!this.state.user) return null;
+
     return (
       <div>
         <div>
           <span>Name: </span>
-          <span><input type="text" value={this.state.name} onChange={this.userNameChanged} /></span>
+          <span><input type="text" value={this.state.user.name} onChange={this.userNameChanged} /></span>
         </div>
         { !this.state.validation.name ? (<div>Name field id required</div>) : null }
         <div>
