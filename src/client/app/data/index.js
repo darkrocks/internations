@@ -4,11 +4,11 @@ import cloneDeep from 'lodash/cloneDeep'
 let groups = [
   {
     id: 1,
-    name: 'group 1'
+    name: 'Admins'
   },
   {
     id: 2,
-    name: 'group 2'
+    name: 'Editors'
   }
 ];
 

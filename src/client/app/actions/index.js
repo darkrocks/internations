@@ -3,6 +3,7 @@ import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveU
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_FILTERED_GROUPS = 'RECEIVE_FILTERED_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
+export const GROUPS_FILTER_CHANGED = 'GROUPS_FILTER_CHANGED'
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const USER_ADDED = 'USER_ADDED';
@@ -27,13 +28,25 @@ export function getFilteredGroups(filter) {
   return dispatch => {
     return dispatch(fetchGroups())
       .then((action) => {
-        var pattern = new RegExp(filter,"gi");
+        var pattern = new RegExp(filter,"i");
         var filteredGroups = action.groups.filter((group) =>  pattern.test(group.name));
         return dispatch({
           type: RECEIVE_FILTERED_GROUPS,
           groups: filteredGroups
         });
       });
+  }
+}
+
+export function groupsFilterChanged(filter) {
+  return dispatch => {
+
+    dispatch({
+      type: GROUPS_FILTER_CHANGED,
+      filter: filter
+    });
+
+    return dispatch(getFilteredGroups(filter));
   }
 }
 

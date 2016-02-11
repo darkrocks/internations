@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { getFilteredGroups, deleteGroup } from '../actions'
+import { getFilteredGroups, groupsFilterChanged, deleteGroup } from '../actions'
 import { Link } from 'react-router'
 
 class GroupsPage extends Component {
   constructor(props) {
     super(props)
+
+    this.groupsFilterChanged = this.groupsFilterChanged.bind(this)
   }
 
   componentWillMount() {
@@ -16,11 +18,22 @@ class GroupsPage extends Component {
       });
   }
 
+  groupsFilterChanged(event) {
+    this.props.groupsFilterChanged(event.target.value);
+  }
+
   render() {
     var that = this;
     return (
       <div>
         Groups
+        <div>
+          <input
+            type="text"
+            value={this.props.groupsFilter}
+            onChange={this.groupsFilterChanged}
+            />
+        </div>
         <table>
           <thead>
           <tr>
@@ -60,17 +73,20 @@ class GroupsPage extends Component {
 GroupsPage.propTypes = {
   groups: PropTypes.array.isRequired,
   getFilteredGroups: PropTypes.func.isRequired,
-  deleteGroup: PropTypes.func.isRequired
+  deleteGroup: PropTypes.func.isRequired,
+  groupsFilterChanged: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    groups: state.groups
+    groups: state.filteredGroups,
+    groupsFilter: state.groupsFilter
   }
 }
 
 export default connect(mapStateToProps, {
   getFilteredGroups,
+  groupsFilterChanged,
   deleteGroup,
   push
 })(GroupsPage)

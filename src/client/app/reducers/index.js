@@ -21,6 +21,15 @@ function filteredGroups(state = [], action) {
   return state
 }
 
+function groupsFilter(state = '', action) {
+  switch (action.type) {
+    case ActionTypes.GROUPS_FILTER_CHANGED:
+      return action.filter;
+  }
+
+  return state;
+}
+
 function groupDetails(state = null, action) {
   switch (action.type) {
     case ActionTypes.RECEIVE_GROUP_DETAILS:
@@ -54,6 +63,7 @@ function users(state = [], action) {
 const rootReducer = combineReducers({
   groups,
   filteredGroups,
+  groupsFilter,
   groupDetails,
   users,
   userForEdit,
