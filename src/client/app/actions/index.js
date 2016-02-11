@@ -1,6 +1,7 @@
 import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb, deleteUserFromDb, deleteGroupFromDb } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
+export const RECEIVE_FILTERED_GROUPS = 'RECEIVE_FILTERED_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
@@ -14,7 +15,6 @@ export const GROUP_DELETED = 'GROUP_DELETED';
 
 export function fetchGroups() {
   return dispatch => {
-    //dispatch(requestPosts(reddit))
     return getGroups()
       .then(groups => dispatch({
         type: RECEIVE_GROUPS,
@@ -23,10 +23,22 @@ export function fetchGroups() {
   }
 }
 
+export function getFilteredGroups(filter) {
+  return dispatch => {
+    return dispatch(fetchGroups())
+      .then((action) => {
+        var pattern = new RegExp(filter,"gi");
+        var filteredGroups = action.groups.filter((group) =>  pattern.test(group.name));
+        return dispatch({
+          type: RECEIVE_FILTERED_GROUPS,
+          groups: filteredGroups
+        });
+      });
+  }
+}
 
 export function fetchGroupDetails(groupId) {
   return dispatch => {
-    //dispatch(requestPosts(reddit))
     return getGroupDetails(groupId)
       .then(group => dispatch({
         type: RECEIVE_GROUP_DETAILS,
@@ -37,7 +49,6 @@ export function fetchGroupDetails(groupId) {
 
 export function fetchUsers() {
   return dispatch => {
-    //dispatch(requestPosts(reddit))
     return getUsers()
       .then(users => dispatch({
         type: RECEIVE_USERS,
@@ -48,7 +59,6 @@ export function fetchUsers() {
 
 export function fetchUserDetails(userId) {
   return dispatch => {
-    //dispatch(requestPosts(reddit))
     return getUserDetails(userId)
       .then(user => dispatch({
         type: RECEIVE_USER_DETAILS,

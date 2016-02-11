@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { fetchGroups, deleteGroup } from '../actions'
+import { getFilteredGroups, deleteGroup } from '../actions'
 import { Link } from 'react-router'
 
 class GroupsPage extends Component {
@@ -10,7 +10,10 @@ class GroupsPage extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchGroups();
+    this.props.getFilteredGroups()
+    .then((data) => {
+        console.log('fetch groups: ' + JSON.stringify(data))
+      });
   }
 
   render() {
@@ -56,7 +59,7 @@ class GroupsPage extends Component {
 
 GroupsPage.propTypes = {
   groups: PropTypes.array.isRequired,
-  fetchGroups: PropTypes.func.isRequired,
+  getFilteredGroups: PropTypes.func.isRequired,
   deleteGroup: PropTypes.func.isRequired
 }
 
@@ -67,7 +70,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchGroups,
+  getFilteredGroups,
   deleteGroup,
   push
 })(GroupsPage)
