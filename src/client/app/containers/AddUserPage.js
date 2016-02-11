@@ -32,6 +32,8 @@ class AddUserPage extends Component {
   }
 
   render() {
+    if (!this.props.allGroups) return null;
+
     return (
       <div>
         <h1>Add user</h1>

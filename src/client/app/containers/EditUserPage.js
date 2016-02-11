@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { addUser, fetchGroups } from '../actions'
+import { saveUser, fetchGroups, fetchUserDetails } from '../actions'
 import { Link } from 'react-router'
 import find from 'lodash/find'
 import EditUserForm from '../components/EditUserForm';
@@ -9,7 +9,7 @@ import EditUserForm from '../components/EditUserForm';
 class EditUserPage extends Component {
   constructor(props) {
     super(props);
-    this.editUser = this.editUser.bind(this)
+    this.saveUser = this.saveUser.bind(this)
   }
 
   componentWillMount() {
@@ -29,9 +29,11 @@ class EditUserPage extends Component {
   }
 
   render() {
+    if (!this.props.user || !this.props.allGroups) return null;
+
     return (
       <div>
-        <h1>Add user</h1>
+        <h1>Edit user</h1>
         <EditUserForm user={this.props.user} save={this.saveUser} saveButtonText='Save' allGroups={this.props.allGroups}/>
       </div>
     )
@@ -40,19 +42,22 @@ class EditUserPage extends Component {
 
 EditUserPage.propTypes = {
   fetchGroups: PropTypes.func.isRequired,
-  addUser: PropTypes.func.isRequired
+  saveUser: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state, props) {
   return {
+    user: state.userDetails,
+    userId:  props.params.userId,
     allGroups: state.groups
   }
 }
 
 export default connect(mapStateToProps, {
   fetchGroups,
-  addUser,
+  fetchUserDetails,
+  saveUser,
   push
-})(AddUserPage)
+})(EditUserPage)
 
 

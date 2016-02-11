@@ -70,7 +70,7 @@ export function getGroupDetails(groupId) {
 
 export function getUsers() {
   return new Promise((resolve, reject) => {
-    resolve(users);
+    resolve(cloneDeep(users));
   })
 }
 
@@ -114,3 +114,12 @@ export function insertUser (user) {
   })
 }
 
+export function saveUserToDb (user) {
+  return new Promise((resolve, reject) => {
+    var dbUser = find(users, (u) => u.id === user.id);
+    dbUser.name = user.name;
+    dbUser.groups = user.groups;
+
+    resolve();
+  })
+}

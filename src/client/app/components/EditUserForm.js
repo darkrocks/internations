@@ -1,24 +1,30 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes} from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { addUser, fetchGroups } from '../actions'
 import { Link } from 'react-router'
 import { find, filter } from 'lodash'
+import Joi from 'joi';
+import validation from 'react-validation-mixin';
+import strategy from 'joi-validation-strategy'
+
 
 class EditUserForm extends Component {
   constructor(props) {
     super(props)
 
-    this.saveButtonClicked = false;
+    this.validatorTypes = {
+      username: Joi.string().required().label('Username'),
+      groups: Joi.array().min(1).label('Groups')
+    };
 
     this.state = {
-      user: null,
       selectedGroupId: null,
-      validation: {
-        name: true,
-        groups: true
-      }
+      user: this.props.user
     };
+    this.getValidatorData = this.getValidatorData.bind(this);
+    this.renderHelpText = this.renderHelpText.bind(this);
 
     this.userNameChanged = this.userNameChanged.bind(this)
     this.selectGroupChanged = this.selectGroupChanged.bind(this)
@@ -27,18 +33,11 @@ class EditUserForm extends Component {
     this.save = this.save.bind(this)
   }
 
-  componentWillReceiveProps(newProps) {
-    if (!this.state.selectedGroupId && newProps.allGroups && newProps.allGroups.length > 0) {
-      this.setState({
-        selectedGroupId: newProps.allGroups[0].id
-      })
-    }
-    
-    if (this.state.user === null && newProps.user ) {
-      this.setState({
-        user: newProps.user
-      });
-    }
+  getValidatorData() {
+    return {
+      username: ReactDOM.findDOMNode(this.refs.username).value,
+      groups: this.state.user.groups
+    };
   }
 
   userNameChanged(event) {
@@ -47,10 +46,6 @@ class EditUserForm extends Component {
 
     this.setState({
       user: user
-    }, () => {
-      this.setState({
-        validation: this.getValidationState()
-      });
     });
   }
 
@@ -59,38 +54,25 @@ class EditUserForm extends Component {
   }
 
   save() {
-    this.saveButtonClicked = true;
-    if (this.isFormValid()) {
-      this.props.save(this.state.user.name, this.state.user.groups);
-    }
-    else {
-      this.setState({validation: this.getValidationState()});
-    }
-  }
-
-  isFormValid() {
-    return this.state.user.name && this.state.user.groups.length;
-  }
-
-  getValidationState() {
-    var validation = {
-      name: true,
-      groups: true
+    const onValidate = (error) => {
+      if (error) {
+        //form has errors; do not submit
+      } else {
+        this.props.save(this.state.user.name, this.state.user.groups);
+      }
     };
-
-    if (this.saveButtonClicked) {
-      if (!this.state.user.name) validation.name = false;
-      if (!this.state.user.groups.length) validation.groups = false;
-    }
-
-    return validation;
+    this.props.validate(onValidate);
   }
 
   addToGroup() {
-    const isInGroup = find(this.state.user.groups, (g) => g.id === this.state.selectedGroupId);
+    if (!this.props.allGroups.length) return;
+
+    var selectedGroupId = this.state.selectedGroupId ? this.state.selectedGroupId : this.props.allGroups[0].id;
+
+    const isInGroup = find(this.state.user.groups, (g) => g.id === selectedGroupId);
 
     if (!isInGroup) {
-      var groupToAdd = find(this.props.allGroups, (g) => g.id === this.state.selectedGroupId);
+      var groupToAdd = find(this.props.allGroups, (g) => g.id === selectedGroupId);
 
       var groups = this.state.user.groups;
       groups.push(groupToAdd);
@@ -108,13 +90,11 @@ class EditUserForm extends Component {
     var user = this.state.user;
     user.groups = groups;
 
+
     this.setState({
       user: user
-    }, () => {
-      this.setState({
-        validation: this.getValidationState()
-      });
     });
+    this.props.handleValidation('groups')();
   }
 
   renderGroupsSelector() {
@@ -174,9 +154,17 @@ class EditUserForm extends Component {
       <div>
         <div>
           <span>Name: </span>
-          <span><input type="text" value={this.state.user.name} onChange={this.userNameChanged} /></span>
+          <span>
+            <input
+              type="text"
+              ref='username'
+              value={this.state.user.name}
+              onChange={this.userNameChanged}
+              onBlur={this.props.handleValidation('username')}
+              />
+          </span>
         </div>
-        { !this.state.validation.name ? (<div>Name field id required</div>) : null }
+        {this.renderHelpText(this.props.getValidationMessages('username'))}
         <div>
           <span>Add to group: </span>
           <span>{ this.renderGroupsSelector()}</span>
@@ -185,19 +173,26 @@ class EditUserForm extends Component {
         <div><span>Groups: </span>
           { this.renderGroups()}
         </div>
-        { !this.state.validation.groups ? <div>User should be added at least to one group</div> : null }
+        {this.renderHelpText(this.props.getValidationMessages('groups'))}
         <div><button onClick={this.save}>{this.props.saveButtonText}</button></div>
       </div>
     )
   }
+
+  renderHelpText(message) {
+    return (
+      <span className='help-block'>{message}</span>
+    );
+  }
 }
+
 
 EditUserForm.propTypes = {
   save: PropTypes.func.isRequired,
+  saveButtonText: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  saveButtonText: PropTypes.string.isRequired
+  allGroups: PropTypes.array.isRequired
 }
 
-export default EditUserForm;
-
+export default validation(strategy)(EditUserForm);
 

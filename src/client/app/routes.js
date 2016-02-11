@@ -6,7 +6,7 @@ import GroupPage from './containers/GroupPage'
 import UserPage from './containers/UserPage'
 import UsersPage from './containers/UsersPage'
 import AddUserPage from './containers/AddUserPage'
-//import EditUserPage from './containers/EditUserPage'
+import EditUserPage from './containers/EditUserPage'
 
 export default (
   <Route path="/" component={App}>
@@ -14,15 +14,14 @@ export default (
            component={GroupsPage} />
     <Route path="/groups/:groupId"
            component={GroupPage} />
+
     <Route path="/users"
            component={UsersPage} />
     <Route path="/users/add"
            component={AddUserPage} />
     <Route path="/users/:userId"
-           component={UserPage} />
+           component={EditUserPage} />
   </Route>
 )
-//
-//<Route path="/users/edit/:userId"
-//component={EditUserPage} />
+
 
