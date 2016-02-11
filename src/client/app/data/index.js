@@ -116,9 +116,10 @@ export function insertUser (user) {
 
 export function saveUserToDb (user) {
   return new Promise((resolve, reject) => {
+    console.log('saveUserToDb' + JSON.stringify(user));
     var dbUser = find(users, (u) => u.id === user.id);
     dbUser.name = user.name;
-    dbUser.groups = user.groups;
+    dbUser.groups = user.groups.map((g) => g.id);
 
     resolve();
   })

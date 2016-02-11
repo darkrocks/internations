@@ -64,10 +64,12 @@ function groupDetails(state = null, action) {
   return state
 }
 
-function userDetails(state = null, action) {
+function userForEdit(state = null, action) {
   switch (action.type) {
     case ActionTypes.RECEIVE_USER_DETAILS:
-      return action.userDetails;
+    case ActionTypes.EMPTY_USER_CREATED:
+    case ActionTypes.USER_CHANGED:
+      return action.user;
   }
 
   return state
@@ -89,7 +91,7 @@ const rootReducer = combineReducers({
   groups,
   groupDetails,
   users,
-  userDetails,
+  userForEdit,
   routing: routeReducer
 })
 

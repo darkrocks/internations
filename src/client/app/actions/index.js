@@ -147,6 +147,8 @@ export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const USER_ADDED = 'USER_ADDED';
 export const USER_SAVED = 'USER_SAVED';
+export const USER_CHANGED = 'USER_CHANGED';
+export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED'
 
 function receiveGroups(groups) {
   return {
@@ -196,7 +198,7 @@ export function fetchUsers() {
 function receiveUserDetails(user) {
   return {
     type: RECEIVE_USER_DETAILS,
-    userDetails: user
+    user: user
   }
 }
 
@@ -205,6 +207,27 @@ export function fetchUserDetails(userId) {
     //dispatch(requestPosts(reddit))
     return getUserDetails(userId)
       .then(user => dispatch(receiveUserDetails(user)))
+  }
+}
+
+export function createEmptyUser() {
+  return {
+    type: EMPTY_USER_CREATED,
+    user: {
+      name: '',
+      groups: []
+    }
+  }
+}
+
+export function changeUser(user) {
+  return dispatch => {
+    return new Promise(() => {
+      return dispatch({
+        type: USER_CHANGED,
+        user: user
+      });
+    })
   }
 }
 
@@ -230,7 +253,7 @@ function userSaved() {
 export function saveUser(user) {
   return dispatch => {
     return saveUserToDb(user)
-      .then(user => dispatch(userSaved(user)))
+      .then(user => dispatch(userSaved()))
   }
 }
 

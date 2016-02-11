@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { saveUser, fetchGroups, fetchUserDetails } from '../actions'
+import { saveUser, fetchGroups, fetchUserDetails, changeUser } from '../actions'
 import { Link } from 'react-router'
 import find from 'lodash/find'
 import EditUserForm from '../components/EditUserForm';
@@ -9,7 +9,7 @@ import EditUserForm from '../components/EditUserForm';
 class EditUserPage extends Component {
   constructor(props) {
     super(props);
-    this.saveUser = this.saveUser.bind(this)
+    this.saveUser = this.saveUser.bind(this);
   }
 
   componentWillMount() {
@@ -17,11 +17,8 @@ class EditUserPage extends Component {
     this.props.fetchUserDetails(this.props.userId);
   }
 
-  saveUser(name, groups) {
-    var user = this.props.user;
-    user.name = name;
-    user.groups = groups.map((g) => g.id);
-
+  saveUser(user) {
+    console.log('save user: ' + JSON.stringify(user));
     this.props.saveUser(user)
       .then(() => {
         this.props.push(`/users`);
@@ -34,7 +31,9 @@ class EditUserPage extends Component {
     return (
       <div>
         <h1>Edit user</h1>
-        <EditUserForm user={this.props.user} save={this.saveUser} saveButtonText='Save' allGroups={this.props.allGroups}/>
+        <EditUserForm user={this.props.user} save={this.saveUser} saveButtonText='Save'
+                      userChanged ={this.props.changeUser}
+                      allGroups={this.props.allGroups}/>
       </div>
     )
   }
@@ -42,12 +41,13 @@ class EditUserPage extends Component {
 
 EditUserPage.propTypes = {
   fetchGroups: PropTypes.func.isRequired,
-  saveUser: PropTypes.func.isRequired
+  saveUser: PropTypes.func.isRequired,
+  changeUser: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state, props) {
   return {
-    user: state.userDetails,
+    user: state.userForEdit,
     userId:  props.params.userId,
     allGroups: state.groups
   }
@@ -56,6 +56,7 @@ function mapStateToProps(state, props) {
 export default connect(mapStateToProps, {
   fetchGroups,
   fetchUserDetails,
+  changeUser,
   saveUser,
   push
 })(EditUserPage)
