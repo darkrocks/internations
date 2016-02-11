@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { fetchGroups } from '../actions'
+import { fetchGroups, deleteGroup } from '../actions'
 import { Link } from 'react-router'
 
 class GroupsPage extends Component {
@@ -14,6 +14,7 @@ class GroupsPage extends Component {
   }
 
   render() {
+    var that = this;
     return (
       <div>
         Groups
@@ -26,6 +27,10 @@ class GroupsPage extends Component {
           </thead>
           <tbody>
             {this.props.groups.map((group) => {
+              function deleteGroup() {
+                that.props.deleteGroup(group.id);
+              }
+
               return (
                 <tr>
                   <td>
@@ -34,6 +39,11 @@ class GroupsPage extends Component {
                     </Link>
                   </td>
                   <td>{group.users.length}</td>
+                  <td>
+                    { group.users.length ? null :
+                      (<button onClick={deleteGroup}>Delete</button>)
+                    }
+                  </td>
                 </tr>
               )
             })}
@@ -46,7 +56,8 @@ class GroupsPage extends Component {
 
 GroupsPage.propTypes = {
   groups: PropTypes.array.isRequired,
-  fetchGroups: PropTypes.func.isRequired
+  fetchGroups: PropTypes.func.isRequired,
+  deleteGroup: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -57,6 +68,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   fetchGroups,
+  deleteGroup,
   push
 })(GroupsPage)
 

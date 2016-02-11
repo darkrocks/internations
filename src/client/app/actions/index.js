@@ -1,4 +1,4 @@
-import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb, deleteUserFromDb } from '../data'
+import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb, deleteUserFromDb, deleteGroupFromDb } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
@@ -8,7 +8,8 @@ export const USER_ADDED = 'USER_ADDED';
 export const USER_SAVED = 'USER_SAVED';
 export const USER_CHANGED = 'USER_CHANGED';
 export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED';
-export const USER_DELETED = 'USER_DELETED'
+export const USER_DELETED = 'USER_DELETED';
+export const GROUP_DELETED = 'GROUP_DELETED';
 
 function receiveGroups(groups) {
   return {
@@ -127,6 +128,13 @@ export function deleteUser(userId) {
   }
 }
 
-
-
+export function deleteGroup(groupId) {
+  return dispatch => {
+    return deleteGroupFromDb(groupId)
+      .then(groups => dispatch({
+        type: GROUP_DELETED
+      }))
+    .then(dispatch(fetchGroups()));
+  }
+}
 

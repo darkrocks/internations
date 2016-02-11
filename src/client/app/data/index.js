@@ -128,6 +128,18 @@ export function deleteUserFromDb(userId) {
   return new Promise((resolve, reject) => {
     users = users.filter((u) => u.id !== userId);
 
-    resolve(users);
+    resolve(cloneDeep(users));
+  });
+}
+
+export function deleteGroupFromDb(groupId) {
+  return new Promise((resolve, reject) => {
+    groups = groups.filter((g) => g.id !== groupId);
+
+    users.forEach((u) => {
+      u.groups = u.groups.filter((gId) => gId !== groupId);
+    });
+
+    resolve(cloneDeep(groups));
   });
 }
