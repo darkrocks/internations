@@ -1,19 +1,10 @@
 {
-  "name": "redux-real-world-example",
+  "name": "kazinov-internations",
   "version": "0.0.0",
-  "description": "Redux real-world example",
+  "description": "Dmitriy Kazinov test task for internations",
   "scripts": {
     "start": "node src/server/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rackt/redux.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rackt/redux/issues"
-  },
-  "homepage": "http://rackt.github.io/redux",
   "dependencies": {
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
