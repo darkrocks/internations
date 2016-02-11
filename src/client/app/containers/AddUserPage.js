@@ -6,12 +6,6 @@ import { Link } from 'react-router'
 import find from 'lodash/find'
 import EditUserForm from '../components/EditUserForm';
 
-
-const newUser = {
-  name: '',
-  groups: []
-};
-
 class AddUserPage extends Component {
   constructor(props) {
     super(props);

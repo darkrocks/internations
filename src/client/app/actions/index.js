@@ -1,9 +1,13 @@
-import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb, deleteUserFromDb, deleteGroupFromDb } from '../data'
+import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser,
+  saveUserToDb, deleteUserFromDb, deleteGroupFromDb, insertGroup } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_FILTERED_GROUPS = 'RECEIVE_FILTERED_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
 export const GROUPS_FILTER_CHANGED = 'GROUPS_FILTER_CHANGED'
+export const EMPTY_GROUP_CREATED = 'EMPTY_GROUP_CREATED'
+export const GROUP_ADDED = 'GROUP_ADDED';
+export const GROUP_CHANGED = 'GROUP_CHANGED';
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const USER_ADDED = 'USER_ADDED';
@@ -13,6 +17,35 @@ export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED';
 export const USER_DELETED = 'USER_DELETED';
 export const GROUP_DELETED = 'GROUP_DELETED';
 
+
+export function addGroup(group) {
+  return dispatch => {
+    return insertGroup(group)
+      .then(user => dispatch({
+        type: GROUP_ADDED
+      }));
+  }
+}
+
+export function changeGroup(group) {
+  return dispatch => {
+    return new Promise(() => {
+      return dispatch({
+        type: GROUP_CHANGED,
+        group: group
+      });
+    })
+  }
+}
+
+export function createEmptyGroup() {
+  return {
+    type: EMPTY_GROUP_CREATED,
+    group: {
+      name: ''
+    }
+  }
+}
 
 export function fetchGroups() {
   return dispatch => {
@@ -24,11 +57,13 @@ export function fetchGroups() {
   }
 }
 
-export function getFilteredGroups(filter) {
-  return dispatch => {
+export function getFilteredGroups() {
+  return (dispatch, getState) => {
     return dispatch(fetchGroups())
       .then((action) => {
-        var pattern = new RegExp(filter,"i");
+        const { groupsFilter } = getState();
+
+        var pattern = new RegExp(groupsFilter,"i");
         var filteredGroups = action.groups.filter((group) =>  pattern.test(group.name));
         return dispatch({
           type: RECEIVE_FILTERED_GROUPS,
@@ -46,7 +81,7 @@ export function groupsFilterChanged(filter) {
       filter: filter
     });
 
-    return dispatch(getFilteredGroups(filter));
+    return dispatch(getFilteredGroups());
   }
 }
 
@@ -135,7 +170,7 @@ export function deleteGroup(groupId) {
       .then(groups => dispatch({
         type: GROUP_DELETED
       }))
-    .then(dispatch(fetchGroups()));
+    .then(dispatch(getFilteredGroups()));
   }
 }
 

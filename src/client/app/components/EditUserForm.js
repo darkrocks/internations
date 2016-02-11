@@ -1,9 +1,5 @@
 import React, { Component, PropTypes} from 'react'
 import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import { addUser, fetchGroups } from '../actions'
-import { Link } from 'react-router'
 import { find, filter } from 'lodash'
 import Joi from 'joi';
 import validation from 'react-validation-mixin';

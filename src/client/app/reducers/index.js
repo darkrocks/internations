@@ -3,6 +3,18 @@ import merge from 'lodash/merge'
 import { routeReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
+
+function groupForEdit(state = null, action) {
+  switch (action.type) {
+    case ActionTypes.RECEIVE_GROUP_DETAILS:
+    case ActionTypes.EMPTY_GROUP_CREATED:
+    case ActionTypes.GROUP_CHANGED:
+      return action.group;
+  }
+
+  return state
+}
+
 function groups(state = [], action) {
   switch (action.type) {
     case ActionTypes.RECEIVE_GROUPS:
@@ -65,6 +77,7 @@ const rootReducer = combineReducers({
   filteredGroups,
   groupsFilter,
   groupDetails,
+  groupForEdit,
   users,
   userForEdit,
   routing: routeReducer

@@ -29,6 +29,18 @@ let users = [
   }
 ]
 
+export function insertGroup (group) {
+  return new Promise((resolve, reject) => {
+    var groupToAdd = {
+      id: Math.floor(Math.random()* 1000),
+      name: group.name
+    };
+
+    groups.push(groupToAdd);
+    resolve(groupToAdd);
+  })
+}
+
 export function getGroups() {
   return new Promise((resolve, reject) => {
     var groupModels = [];

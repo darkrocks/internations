@@ -27,6 +27,9 @@ class GroupsPage extends Component {
     return (
       <div>
         Groups
+        <Link to={`/groups/add`}>
+          Add group
+        </Link>
         <div>
           <input
             type="text"
