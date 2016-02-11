@@ -11,40 +11,27 @@ export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED';
 export const USER_DELETED = 'USER_DELETED';
 export const GROUP_DELETED = 'GROUP_DELETED';
 
-function receiveGroups(groups) {
-  return {
-    type: RECEIVE_GROUPS,
-    groups: groups
-  }
-}
 
 export function fetchGroups() {
   return dispatch => {
     //dispatch(requestPosts(reddit))
     return getGroups()
-      .then(groups => dispatch(receiveGroups(groups)))
+      .then(groups => dispatch({
+        type: RECEIVE_GROUPS,
+        groups: groups
+      }))
   }
 }
 
-function receiveGroupDetails(group) {
-  return {
-    type: RECEIVE_GROUP_DETAILS,
-    groupDetails: group
-  }
-}
 
 export function fetchGroupDetails(groupId) {
   return dispatch => {
     //dispatch(requestPosts(reddit))
     return getGroupDetails(groupId)
-      .then(group => dispatch(receiveGroupDetails(group)))
-  }
-}
-
-function receiveUsers(users) {
-  return {
-    type: RECEIVE_USERS,
-    users: users
+      .then(group => dispatch({
+        type: RECEIVE_GROUP_DETAILS,
+        groupDetails: group
+      }))
   }
 }
 
@@ -52,14 +39,10 @@ export function fetchUsers() {
   return dispatch => {
     //dispatch(requestPosts(reddit))
     return getUsers()
-      .then(users => dispatch(receiveUsers(users)))
-  }
-}
-
-function receiveUserDetails(user) {
-  return {
-    type: RECEIVE_USER_DETAILS,
-    user: user
+      .then(users => dispatch({
+        type: RECEIVE_USERS,
+        users: users
+      }))
   }
 }
 
@@ -67,7 +50,10 @@ export function fetchUserDetails(userId) {
   return dispatch => {
     //dispatch(requestPosts(reddit))
     return getUserDetails(userId)
-      .then(user => dispatch(receiveUserDetails(user)))
+      .then(user => dispatch({
+        type: RECEIVE_USER_DETAILS,
+        user: user
+      }))
   }
 }
 
@@ -92,29 +78,21 @@ export function changeUser(user) {
   }
 }
 
-function userAdded() {
-  return {
-    type: USER_ADDED
-  }
-}
-
 export function addUser(user) {
   return dispatch => {
     return insertUser(user)
-      .then(user => dispatch(userAdded(user)))
-  }
-}
-
-function userSaved() {
-  return {
-    type: USER_SAVED
+      .then(user => dispatch({
+        type: USER_ADDED
+      }));
   }
 }
 
 export function saveUser(user) {
   return dispatch => {
     return saveUserToDb(user)
-      .then(user => dispatch(userSaved()))
+      .then(user => dispatch({
+        type: USER_SAVED
+      }))
   }
 }
 
