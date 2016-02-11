@@ -35,6 +35,7 @@ function userForEdit(state = null, action) {
 function users(state = [], action) {
   switch (action.type) {
     case ActionTypes.RECEIVE_USERS:
+    case ActionTypes.USER_DELETED:
       return action.users;
   }
 

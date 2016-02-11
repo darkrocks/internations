@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { fetchUsers } from '../actions'
+import { fetchUsers, deleteUser } from '../actions'
 import { Link } from 'react-router'
 
 class UsersPage extends Component {
@@ -9,6 +9,7 @@ class UsersPage extends Component {
     super(props)
 
     this.navigateToUserPage = this.navigateToUserPage.bind(this)
+
   }
 
   navigateToUserPage(userId) {
@@ -20,6 +21,8 @@ class UsersPage extends Component {
   }
 
   render() {
+    var that = this;
+
     return (
       <div>
         <Link to={`/users/add`}>
@@ -35,6 +38,10 @@ class UsersPage extends Component {
           </thead>
           <tbody>
             {this.props.users.map((user) => {
+              function deleteUser() {
+                that.props.deleteUser(user.id);
+              }
+
               return (
                 <tr>
                   <td>
@@ -42,7 +49,9 @@ class UsersPage extends Component {
                       {user.name}
                     </Link>
                   </td>
-                  <td></td>
+                  <td>
+                    <button onClick={deleteUser}>Delete</button>
+                  </td>
                 </tr>
               )
             })}
@@ -55,7 +64,8 @@ class UsersPage extends Component {
 
 UsersPage.propTypes = {
   users: PropTypes.array.isRequired,
-  fetchUsers: PropTypes.func.isRequired
+  fetchUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -66,6 +76,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   fetchUsers,
+  deleteUser,
   push
 })(UsersPage)
 

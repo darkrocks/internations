@@ -1,4 +1,4 @@
-import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb } from '../data'
+import { getGroups, getGroupDetails, getUsers, getUserDetails, insertUser, saveUserToDb, deleteUserFromDb } from '../data'
 
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 export const RECEIVE_GROUP_DETAILS = 'RECEIVE_GROUP_DETAILS'
@@ -7,7 +7,8 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const USER_ADDED = 'USER_ADDED';
 export const USER_SAVED = 'USER_SAVED';
 export const USER_CHANGED = 'USER_CHANGED';
-export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED'
+export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED';
+export const USER_DELETED = 'USER_DELETED'
 
 function receiveGroups(groups) {
   return {
@@ -115,6 +116,17 @@ export function saveUser(user) {
       .then(user => dispatch(userSaved()))
   }
 }
+
+export function deleteUser(userId) {
+  return dispatch => {
+    return deleteUserFromDb(userId)
+      .then(users => dispatch({
+        type: USER_DELETED,
+        users: users
+      }))
+  }
+}
+
 
 
 
