@@ -6,7 +6,6 @@ import { combineReducers } from 'redux'
 
 function groupForEdit(state = null, action) {
   switch (action.type) {
-    case ActionTypes.RECEIVE_GROUP_DETAILS:
     case ActionTypes.EMPTY_GROUP_CREATED:
     case ActionTypes.GROUP_CHANGED:
       return action.group;

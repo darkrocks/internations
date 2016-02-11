@@ -8,6 +8,7 @@ export const GROUPS_FILTER_CHANGED = 'GROUPS_FILTER_CHANGED'
 export const EMPTY_GROUP_CREATED = 'EMPTY_GROUP_CREATED'
 export const GROUP_ADDED = 'GROUP_ADDED';
 export const GROUP_CHANGED = 'GROUP_CHANGED';
+export const GROUP_SAVED = 'GROUP_SAVED';
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const USER_ADDED = 'USER_ADDED';
@@ -17,6 +18,15 @@ export const EMPTY_USER_CREATED = 'EMPTY_USER_CREATED';
 export const USER_DELETED = 'USER_DELETED';
 export const GROUP_DELETED = 'GROUP_DELETED';
 
+
+export function saveGroup(group) {
+  return dispatch => {
+    return saveGroupToDb(group)
+      .then(group => dispatch({
+        type: GROUP_SAVED
+      }))
+  }
+}
 
 export function addGroup(group) {
   return dispatch => {

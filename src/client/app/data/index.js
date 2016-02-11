@@ -155,3 +155,13 @@ export function deleteGroupFromDb(groupId) {
     resolve(cloneDeep(groups));
   });
 }
+
+export function saveGroupToDb (group) {
+  return new Promise((resolve, reject) => {
+    var dbGroup = find(groups, (g) => g.id === group.id);
+    dbGroup.name = group.name;
+
+    resolve();
+  });
+}
+
