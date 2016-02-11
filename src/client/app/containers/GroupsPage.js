@@ -33,7 +33,7 @@ class GroupsPage extends Component {
                       {group.name}
                     </Link>
                   </td>
-                  <td>{group.users.length + 1}</td>
+                  <td>{group.users.length}</td>
                 </tr>
               )
             })}
