@@ -6,6 +6,7 @@
     "start": "node src/server/server.js"
   },
   "dependencies": {
+    "express": "^4.13.4",
     "humps": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
     "joi": "^7.2.3",
