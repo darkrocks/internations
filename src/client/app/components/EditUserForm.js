@@ -94,7 +94,7 @@ class EditUserForm extends Component {
     if (!this.props.allGroups) return null;
 
     return (
-      <select value={this.state.selectedGroupId} onChange={this.selectGroupChanged}>
+      <select className="ik-inline-form-element" value={this.state.selectedGroupId} onChange={this.selectGroupChanged}>
         {
           this.props.allGroups.map((group) => {
             return (
@@ -112,7 +112,7 @@ class EditUserForm extends Component {
 
     return (
       <div>
-        <label className="ik-inline-label">Groups:</label>
+        <h5>Groups:</h5>
         <table>
           <thead>
           <tr>
@@ -160,7 +160,7 @@ class EditUserForm extends Component {
         <div>
           <label className="ik-inline-label">Add to group: </label>
           <span>{ this.renderGroupsSelector()}</span>
-          <span><button className="ik-inline-form-element" onClick={this.addToGroup}>Add</button></span>
+          <span><button onClick={this.addToGroup}>Add</button></span>
         </div>
         <div>
           { this.renderGroups()}

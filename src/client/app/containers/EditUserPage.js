@@ -30,10 +30,15 @@ class EditUserPage extends Component {
 
     return (
       <div>
-        <h1>Edit user</h1>
-        <EditUserForm user={this.props.user} save={this.saveUser} saveButtonText='Save'
-                      userChanged ={this.props.changeUser}
-                      allGroups={this.props.allGroups}/>
+        <h4>Edit user</h4>
+
+        <div className="row">
+          <div className="twelve columns">
+            <EditUserForm user={this.props.user} save={this.saveUser} saveButtonText='Save'
+                          userChanged={this.props.changeUser}
+                          allGroups={this.props.allGroups}/>
+          </div>
+        </div>
       </div>
     )
   }

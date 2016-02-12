@@ -28,7 +28,7 @@ class GroupsPage extends Component {
       <div>
         <h4>Groups</h4>
         <div className="row">
-          <div className="six columns">
+          <div className="eight columns">
             <label className="ik-inline-label">Search:</label>
             <input
               type="text"
@@ -36,7 +36,7 @@ class GroupsPage extends Component {
               onChange={this.groupsFilterChanged}
               />
           </div>
-          <div className="six columns ik-text-right">
+          <div className="four columns ik-text-right">
             <Link to={`/groups/add`}>
               <button>
                 Create group
