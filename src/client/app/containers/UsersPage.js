@@ -49,7 +49,7 @@ class UsersPage extends Component {
                 }
 
                 return (
-                  <tr>
+                  <tr key={user.id}>
                     <td>
                       <Link to={`/users/${user.id}`}>
                         {user.name}

@@ -62,7 +62,7 @@ class GroupsPage extends Component {
                 }
 
                 return (
-                  <tr>
+                  <tr key={group.id}>
                     <td>
                       <Link to={`/groups/${group.id}`}>
                         {group.name}

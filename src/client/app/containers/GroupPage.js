@@ -22,7 +22,7 @@ class GroupPage extends Component {
         {
           this.props.group.users.map((user) => {
             return (
-              <li>
+              <li key={user.id}>
                 <Link to={`/users/${user.id}`}>
                   {user.name}
                 </Link>

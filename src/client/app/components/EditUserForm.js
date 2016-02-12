@@ -98,7 +98,7 @@ class EditUserForm extends Component {
         {
           this.props.allGroups.map((group) => {
             return (
-              <option value={group.id}>{group.name}</option>
+              <option key={group.id} value={group.id}>{group.name}</option>
             )
           })
         }
@@ -127,7 +127,7 @@ class EditUserForm extends Component {
             }
 
             return (
-              <tr>
+              <tr key={group.id}>
                 <td>
                     {group.name}
                 </td>
