@@ -13,9 +13,8 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        include: __dirname + '/src/client',
+        loader: 'babel-loader',
+        include: [__dirname + '/src/client', __dirname +  '/node_modules/joi'],
         query: {
           presets: ['react', 'es2015']
         }
