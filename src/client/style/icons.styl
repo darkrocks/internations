@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "crossover";
-  src:url("../fonts/crossover.eot");
-  src:url("../fonts/crossover.eot?#iefix") format("embedded-opentype"),
-  url("../fonts/crossover.woff") format("woff"),
-  url("../fonts/crossover.ttf") format("truetype"),
-  url("../fonts/crossover.svg#crossover") format("svg");
+  font-family: "internations";
+  src:url("../fonts/internations.eot");
+  src:url("../fonts/internations.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/internations.woff") format("woff"),
+    url("../fonts/internations.ttf") format("truetype"),
+    url("../fonts/internations.svg#internations") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "crossover" !important;
+  font-family: "internations" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -27,7 +27,7 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  font-family: "crossover" !important;
+  font-family: "internations" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -38,24 +38,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-build:before {
+.icon-search:before {
   content: "\61";
 }
-.icon-down:before {
+.icon-trash-o:before {
+  content: "\62";
+}
+.icon-trash:before {
   content: "\63";
 }
-.icon-up:before {
+.icon-plus:before {
   content: "\64";
 }
-.icon-left:before {
+.icon-plus-circle:before {
   content: "\65";
-}
-.icon-right:before {
-  content: "\66";
-}
-.icon-search:before {
-  content: "\67";
-}
-.icon-changeset:before {
-  content: "\68";
 }

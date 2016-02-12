@@ -11,6 +11,7 @@
     "joi": "^7.2.3",
     "joi-validation-strategy": "^0.3.3",
     "lodash": "^4.0.0",
+    "normalize-css": "^2.3.1",
     "normalizr": "^2.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

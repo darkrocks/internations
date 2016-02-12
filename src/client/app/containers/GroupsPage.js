@@ -13,7 +13,7 @@ class GroupsPage extends Component {
 
   componentWillMount() {
     this.props.getFilteredGroups()
-    .then((data) => {
+      .then((data) => {
         console.log('fetch groups: ' + JSON.stringify(data))
       });
   }
@@ -26,48 +26,64 @@ class GroupsPage extends Component {
     var that = this;
     return (
       <div>
-        Groups
-        <Link to={`/groups/add`}>
-          Add group
-        </Link>
-        <div>
-          <input
-            type="text"
-            value={this.props.groupsFilter}
-            onChange={this.groupsFilterChanged}
-            />
+        <h4>Groups</h4>
+        <div className="row">
+          <div className="six columns">
+            <label className="ik-inline-label">Search:</label>
+            <input
+              type="text"
+              value={this.props.groupsFilter}
+              onChange={this.groupsFilterChanged}
+              />
+          </div>
+          <div className="six columns ik-text-right">
+            <Link to={`/groups/add`}>
+              <button>
+                Add group
+              </button>
+            </Link>
+          </div>
         </div>
-        <table>
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Users</th>
-          </tr>
-          </thead>
-          <tbody>
-            {this.props.groups.map((group) => {
-              function deleteGroup() {
-                that.props.deleteGroup(group.id);
-              }
 
-              return (
-                <tr>
-                  <td>
-                    <Link to={`/groups/${group.id}`}>
-                      {group.name}
-                    </Link>
-                  </td>
-                  <td>{group.users.length}</td>
-                  <td>
-                    { group.users.length ? null :
-                      (<button onClick={deleteGroup}>Delete</button>)
-                    }
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="twelve columns">
+            <table className="u-full-width">
+              <col width="40%" />
+              <col width="40%" />
+              <col width="20%" />
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Users</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              {this.props.groups.map((group) => {
+                function deleteGroup() {
+                  that.props.deleteGroup(group.id);
+                }
+
+                return (
+                  <tr>
+                    <td>
+                      <Link to={`/groups/${group.id}`}>
+                        {group.name}
+                      </Link>
+                    </td>
+                    <td>{group.users.length}</td>
+                    <td>
+                      { group.users.length ? null :
+                        (<button onClick={deleteGroup}>Delete</button>)
+                      }
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     )
   }

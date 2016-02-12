@@ -26,25 +26,34 @@ class App extends Component {
   }
 
   render() {
+
+    console.log('pathname: ' + JSON.stringify(this.props.routing));
+
+    const groupsBtnClassName = this.props.routing.location.pathname === '/groups'? 'button-primary': '';
+    const usersBtnClassName = this.props.routing.location.pathname === '/users'? 'button-primary': '';
+
     const { children} = this.props
     return (
-      <div>
-        <div>
-          <button onClick={this.onGroupsClick}>Groups</button>
-          <button onClick={this.onUsersClick}>Users</button>
-        </div>
-        {children}
-      </div>
+    <div className="container">
+      <section className="ik-header">
+        <h2>Test task for Internations by Dmitriy Kazinov</h2>
+        <button className={groupsBtnClassName} onClick={this.onGroupsClick}>Groups</button>
+        <button className={usersBtnClassName} onClick={this.onUsersClick}>Users</button>
+      </section>
+
+      {children}
+    </div>
     )
   }
 }
 
 App.propTypes = {
-  push: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
+    routing: state.routing
   }
 }
 

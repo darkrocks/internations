@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 import App from './containers/App'
 import GroupsPage from './containers/GroupsPage'
 import AddGroupPage from './containers/AddGroupPage'
@@ -11,7 +11,7 @@ import AddUserPage from './containers/AddUserPage'
 import EditUserPage from './containers/EditUserPage'
 
 export default (
-  <Route path="/" component={App}>
+  <Route component={App}>
     <Route path="/groups"
            component={GroupsPage} />
     <Route path="/groups/add"
@@ -25,7 +25,9 @@ export default (
            component={AddUserPage} />
     <Route path="/users/:userId"
            component={EditUserPage} />
+    <Redirect from="/" to="/groups" />
   </Route>
 )
+
 
 
