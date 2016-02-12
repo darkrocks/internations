@@ -28,6 +28,7 @@ Note: project is pre-built into /build folder. So you can just run /build/index.
  - `Redux` as an architecture pattern
  - `stylus` as a CSS pre-processor
  - `webpack` and `gulp` as build tools
+ - `mocha` for tesing
  
  
 ###Features
@@ -36,6 +37,7 @@ Note: project is pre-built into /build folder. So you can just run /build/index.
   - Ability to create/edit users/groups
   - Responsive style, mobile-friendly
   - ES6 syntax
+  - frontend tests
 
 ###API endpoins needed for real-life application
  - `GET /groups`

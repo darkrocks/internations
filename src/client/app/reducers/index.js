@@ -14,7 +14,6 @@ export function groupForEdit(state = null, action) {
 }
 
 function groups(state = [], action) {
-  console.log('action' + JSON.stringify(action));
   switch (action.type) {
     case ActionTypes.RECEIVE_GROUPS:
       return action.groups;
