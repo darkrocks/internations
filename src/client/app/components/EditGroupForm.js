@@ -51,18 +51,18 @@ class EditGroupForm extends Component {
     return (
       <div>
         <div>
-          <span>Group: </span>
-          <span>
-            <input
-              type="text"
-              ref='groupname'
-              value={this.props.group.name}
-              onChange={this.groupNameChanged}
-              onBlur={this.props.handleValidation('groupname')}
-              />
-          </span>
+          <label className="ik-inline-label">Name:</label>
+          <input
+            type="text"
+            ref='groupname'
+            value={this.props.group.name}
+            onChange={this.groupNameChanged}
+            onBlur={this.props.handleValidation('groupname')}
+            />
         </div>
-        <div><button onClick={this.save}>{this.props.saveButtonText}</button></div>
+        <div>
+          <button className="button-primary" onClick={this.save}>{this.props.saveButtonText}</button>
+        </div>
       </div>
     )
   }

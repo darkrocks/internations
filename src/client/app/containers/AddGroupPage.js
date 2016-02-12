@@ -28,14 +28,18 @@ class AddGroupPage extends Component {
     if (!this.props.group) return null;
 
     return (
-
       <div>
-        <h1>Add group</h1>
-        <EditGroupForm
-          group={this.props.group}
-          save={this.addGroup}
-          groupChanged = {this.props.changeGroup}
-          saveButtonText='Add' />
+        <h4>Add group</h4>
+
+        <div className="row">
+          <div className="twelve columns">
+            <EditGroupForm
+              group={this.props.group}
+              save={this.addGroup}
+              groupChanged={this.props.changeGroup}
+              saveButtonText='Add'/>
+          </div>
+        </div>
       </div>
     )
   }
