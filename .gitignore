@@ -1,12 +1,6 @@
 
 node_modules/
 build/
-sitemap/sitemap_index.xml.gz
-sitemap/sitemaps/
-*.swp
-*.swo
-*.DS_Store
 *~
 coverage.html
-dump.rdb
 .idea
