@@ -21,7 +21,7 @@ class UsersPage extends Component {
   }
 
   render() {
-    var that = this;
+    const that = this;
 
     return (
       <div>

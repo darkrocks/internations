@@ -1,8 +1,8 @@
-var express = require('express')
+const express = require('express')
 
-var path = require('path');
-var app = new express()
-var port = 3000
+const path = require('path');
+const app = new express()
+const port = 3000
 
 app.use(express.static(__dirname + '/../../build/'));
 

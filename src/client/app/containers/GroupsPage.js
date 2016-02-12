@@ -20,7 +20,7 @@ class GroupsPage extends Component {
   }
 
   render() {
-    var that = this;
+    const that = this;
     return (
       <div>
         <h4>Groups</h4>

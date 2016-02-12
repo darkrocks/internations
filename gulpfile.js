@@ -26,7 +26,8 @@ gulp.task('lint', function () {
       },
       rules: {
         'no-console': 1,
-        'no-unused-vars': 1
+        'no-unused-vars': 1,
+        'no-var': 2
       },
       envs: [
         'browser', 'node', 'es6', 'commonjs'

@@ -61,14 +61,14 @@ class EditUserForm extends Component {
   addToGroup() {
     if (!this.props.allGroups.length) return;
 
-    var selectedGroupId = this.state.selectedGroupId ? this.state.selectedGroupId : this.props.allGroups[0].id;
+    const selectedGroupId = this.state.selectedGroupId ? this.state.selectedGroupId : this.props.allGroups[0].id;
 
     const isInGroup = find(this.props.user.groups, (g) => g.id === selectedGroupId);
 
     if (!isInGroup) {
-      var groupToAdd = find(this.props.allGroups, (g) => g.id === selectedGroupId);
+      const groupToAdd = find(this.props.allGroups, (g) => g.id === selectedGroupId);
 
-      var groups = this.props.user.groups;
+      let groups = this.props.user.groups;
       groups.push(groupToAdd);
 
       this.setStateForGroups(groups);
@@ -76,7 +76,7 @@ class EditUserForm extends Component {
   }
 
   removeFromGroup(groupId) {
-    var newGroups = filter(this.props.user.groups, (group) => group.id !== groupId);
+    const newGroups = filter(this.props.user.groups, (group) => group.id !== groupId);
     this.setStateForGroups(newGroups);
   }
 

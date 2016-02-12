@@ -53,7 +53,7 @@ let users = [
 
 export function insertGroup (group) {
   return new Promise((resolve) => {
-    var groupToAdd = {
+    const groupToAdd = {
       id: Math.floor(Math.random()* 1000),
       name: group.name
     };
@@ -65,7 +65,7 @@ export function insertGroup (group) {
 
 export function getGroups() {
   return new Promise((resolve) => {
-    var groupModels = [];
+    let groupModels = [];
 
     groups.forEach((g) => {
       groupModels.push(groupToGroupDetails(g));
@@ -76,14 +76,14 @@ export function getGroups() {
 }
 
 function groupToGroupDetails(group) {
-  var groupModel = cloneDeep(group);
+  let groupModel = cloneDeep(group);
   groupModel.users = [];
 
   users.forEach((u) => {
-    var isUserInGroup = !!find(u.groups, (userGroupId) => userGroupId === group.id );
+    const isUserInGroup = !!find(u.groups, (userGroupId) => userGroupId === group.id );
 
     if (isUserInGroup) {
-      var userModel = cloneDeep(u);
+      const userModel = cloneDeep(u);
       delete userModel.groups;
 
       groupModel.users.push(userModel);
@@ -97,7 +97,7 @@ export function getGroupDetails(groupId) {
   groupId = parseInt(groupId)
 
   return new Promise((resolve) => {
-    var group = find(groups, (g) => g.id === groupId);
+    const group = find(groups, (g) => g.id === groupId);
     resolve(groupToGroupDetails(group));
   })
 }
@@ -112,15 +112,15 @@ export function getUserDetails(userId) {
   userId = parseInt(userId)
 
   return new Promise((resolve) => {
-    var userModel;
-    var user = find(users, (u) => u.id === userId);
+    let userModel;
+    const user = find(users, (u) => u.id === userId);
 
     if (user) {
       userModel = cloneDeep(user);
       const userGroupsIds = userModel.groups;
       userModel.groups = [];
       userGroupsIds.forEach((userGroupId) => {
-        var group = find(groups, (group) => group.id === userGroupId);
+        const group = find(groups, (group) => group.id === userGroupId);
 
         if (group) {
           let groupModel = cloneDeep(group);
@@ -136,7 +136,7 @@ export function getUserDetails(userId) {
 
 export function insertUser (user) {
   return new Promise((resolve) => {
-    var userToAdd = {
+    let userToAdd = {
       id: Math.floor(Math.random()* 1000),
       name: user.name
     };
@@ -150,7 +150,7 @@ export function insertUser (user) {
 
 export function saveUserToDb (user) {
   return new Promise((resolve) => {
-    var dbUser = find(users, (u) => u.id === user.id);
+    let dbUser = find(users, (u) => u.id === user.id);
     dbUser.name = user.name;
     dbUser.groups = user.groups.map((g) => g.id);
 
@@ -180,7 +180,7 @@ export function deleteGroupFromDb(groupId) {
 
 export function saveGroupToDb (group) {
   return new Promise((resolve) => {
-    var dbGroup = find(groups, (g) => g.id === group.id);
+    let dbGroup = find(groups, (g) => g.id === group.id);
     dbGroup.name = group.name;
 
     resolve();

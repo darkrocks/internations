@@ -64,8 +64,8 @@ export function getFilteredGroups() {
       .then((action) => {
         const { groupsFilter } = getState();
 
-        var pattern = new RegExp(groupsFilter,"i");
-        var filteredGroups = action.groups.filter((group) =>  pattern.test(group.name));
+        const pattern = new RegExp(groupsFilter,"i");
+        const filteredGroups = action.groups.filter((group) =>  pattern.test(group.name));
         return dispatch({
           type: RECEIVE_FILTERED_GROUPS,
           groups: filteredGroups
