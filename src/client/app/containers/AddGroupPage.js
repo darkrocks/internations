@@ -29,7 +29,7 @@ class AddGroupPage extends Component {
 
     return (
       <div>
-        <h4>Add group</h4>
+        <h4>Create group</h4>
 
         <div className="row">
           <div className="twelve columns">
@@ -37,7 +37,7 @@ class AddGroupPage extends Component {
               group={this.props.group}
               save={this.addGroup}
               groupChanged={this.props.changeGroup}
-              saveButtonText='Add'/>
+              saveButtonText='Create'/>
           </div>
         </div>
       </div>

@@ -29,15 +29,19 @@ class AddUserPage extends Component {
     if (!this.props.user || !this.props.allGroups) return null;
 
     return (
-
       <div>
-        <h1>Add user</h1>
-        <EditUserForm
-          user={this.props.user}
-          save={this.addUser}
-          userChanged = {this.props.changeUser}
-          saveButtonText='Add'
-          allGroups={this.props.allGroups}/>
+        <h4>Create user</h4>
+
+        <div className="row">
+          <div className="twelve columns">
+            <EditUserForm
+              user={this.props.user}
+              save={this.addUser}
+              userChanged={this.props.changeUser}
+              saveButtonText='Create'
+              allGroups={this.props.allGroups}/>
+          </div>
+        </div>
       </div>
     )
   }

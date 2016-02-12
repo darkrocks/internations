@@ -112,6 +112,7 @@ class EditUserForm extends Component {
 
     return (
       <div>
+        <label className="ik-inline-label">Groups:</label>
         <table>
           <thead>
           <tr>
@@ -146,8 +147,7 @@ class EditUserForm extends Component {
     return (
       <div>
         <div>
-          <span>Name: </span>
-          <span>
+          <label className="ik-inline-label">Name:</label>
             <input
               type="text"
               ref='username'
@@ -155,26 +155,25 @@ class EditUserForm extends Component {
               onChange={this.userNameChanged}
               onBlur={this.props.handleValidation('username')}
               />
-          </span>
         </div>
         {this.renderHelpText(this.props.getValidationMessages('username'))}
         <div>
-          <span>Add to group: </span>
+          <label className="ik-inline-label">Add to group: </label>
           <span>{ this.renderGroupsSelector()}</span>
-          <span><button onClick={this.addToGroup}>Add</button></span>
+          <span><button className="ik-inline-form-element" onClick={this.addToGroup}>Add</button></span>
         </div>
-        <div><span>Groups: </span>
+        <div>
           { this.renderGroups()}
         </div>
         {this.renderHelpText(this.props.getValidationMessages('groups'))}
-        <div><button onClick={this.save}>{this.props.saveButtonText}</button></div>
+        <div><button className="button-primary" onClick={this.save}>{this.props.saveButtonText}</button></div>
       </div>
     )
   }
 
   renderHelpText(message) {
     return (
-      <span className='help-block'>{message}</span>
+      <span className='ik-validation-error'>{message}</span>
     );
   }
 }
