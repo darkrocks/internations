@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { addGroup, changeGroup, createEmptyGroup } from '../actions'
 import EditGroupForm from '../components/EditGroupForm';
 
-class AddGroupPage extends Component {
+export class AddGroupPage extends Component {
   constructor(props) {
     super(props);
 
@@ -53,6 +53,7 @@ function mapStateToProps(state) {
     group: state.groupForEdit
   }
 }
+
 
 export default connect(mapStateToProps, {
   changeGroup,
