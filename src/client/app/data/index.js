@@ -9,22 +9,44 @@ let groups = [
   {
     id: 2,
     name: 'Editors'
+  },
+  {
+    id: 3,
+    name: 'Read only users'
+  },
+  {
+    id: 4,
+    name: 'Banned users'
   }
 ];
 
 let users = [
   {
     id: 1,
-    name: 'john',
+    name: 'Arnold',
     groups: [
       1, 2
     ]
   },
   {
     id: 2,
-    name: 'mary',
+    name: 'Bruce',
     groups: [
-      1, 2
+      1
+    ]
+  },
+  {
+    id: 3,
+    name: 'Mary',
+    groups: [
+      3
+    ]
+  },
+  {
+    id: 4,
+    name: 'Jane',
+    groups: [
+      3, 4
     ]
   }
 ]

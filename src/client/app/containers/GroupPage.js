@@ -15,16 +15,23 @@ class GroupPage extends Component {
   }
 
   renderUsers() {
-   if (!this.props.group) return null;
+    if (!this.props.group) return null;
 
-    return this.props.group.users.map((user) => {
-      return (
-        <span>
-          <Link to={`/users/${user.id}`}>
-            {user.name}
-          </Link>,</span>
-      )
-    });
+    return (
+      <ul>
+        {
+          this.props.group.users.map((user) => {
+            return (
+              <li>
+                <Link to={`/users/${user.id}`}>
+                  {user.name}
+                </Link>
+              </li>
+            )
+          })
+        }
+      </ul>
+    );
   }
 
   render() {
@@ -33,12 +40,20 @@ class GroupPage extends Component {
 
     return (
       <div>
-        <div><span>Name: </span><span>{name}</span></div>
-        <div><span>Users: </span>
-          {this.renderUsers()}
+        <h4>Group details</h4>
+
+        <div className="row">
+          <div className="twelve columns">
+            <label className="ik-inline-label">Name:</label>
+            <span>{name}</span>
+          </div>
         </div>
-
-
+        <div className="row">
+          <div className="twelve columns">
+            <label>Users:</label>
+            {this.renderUsers()}
+          </div>
+        </div>
       </div>
     )
   }
