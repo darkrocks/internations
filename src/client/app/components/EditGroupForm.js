@@ -1,6 +1,5 @@
 import React, { Component, PropTypes} from 'react'
 import ReactDOM from 'react-dom'
-import { find, filter } from 'lodash'
 import Joi from 'joi';
 import validation from 'react-validation-mixin';
 import strategy from 'joi-validation-strategy'

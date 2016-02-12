@@ -3,9 +3,7 @@ import { Route, Redirect } from 'react-router'
 import App from './containers/App'
 import GroupsPage from './containers/GroupsPage'
 import AddGroupPage from './containers/AddGroupPage'
-import EditGroupPage from './containers/EditGroupPage'
 import GroupPage from './containers/GroupPage'
-import UserPage from './containers/UserPage'
 import UsersPage from './containers/UsersPage'
 import AddUserPage from './containers/AddUserPage'
 import EditUserPage from './containers/EditUserPage'
@@ -28,6 +26,5 @@ export default (
     <Redirect from="/" to="/groups" />
   </Route>
 )
-
 
 

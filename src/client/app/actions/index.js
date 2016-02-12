@@ -19,19 +19,10 @@ export const USER_DELETED = 'USER_DELETED';
 export const GROUP_DELETED = 'GROUP_DELETED';
 
 
-export function saveGroup(group) {
-  return dispatch => {
-    return saveGroupToDb(group)
-      .then(group => dispatch({
-        type: GROUP_SAVED
-      }))
-  }
-}
-
 export function addGroup(group) {
   return dispatch => {
     return insertGroup(group)
-      .then(user => dispatch({
+      .then(() => dispatch({
         type: GROUP_ADDED
       }));
   }
@@ -149,7 +140,7 @@ export function changeUser(user) {
 export function addUser(user) {
   return dispatch => {
     return insertUser(user)
-      .then(user => dispatch({
+      .then(() => dispatch({
         type: USER_ADDED
       }));
   }
@@ -158,7 +149,7 @@ export function addUser(user) {
 export function saveUser(user) {
   return dispatch => {
     return saveUserToDb(user)
-      .then(user => dispatch({
+      .then(() => dispatch({
         type: USER_SAVED
       }))
   }
@@ -177,7 +168,7 @@ export function deleteUser(userId) {
 export function deleteGroup(groupId) {
   return dispatch => {
     return deleteGroupFromDb(groupId)
-      .then(groups => dispatch({
+      .then(() => dispatch({
         type: GROUP_DELETED
       }))
     .then(dispatch(getFilteredGroups()));

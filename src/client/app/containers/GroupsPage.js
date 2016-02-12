@@ -12,10 +12,7 @@ class GroupsPage extends Component {
   }
 
   componentWillMount() {
-    this.props.getFilteredGroups()
-      .then((data) => {
-        console.log('fetch groups: ' + JSON.stringify(data))
-      });
+    this.props.getFilteredGroups();
   }
 
   groupsFilterChanged(event) {

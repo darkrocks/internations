@@ -36,7 +36,6 @@ class GroupPage extends Component {
 
   render() {
     let name = this.props.group ? this.props.group.name : '';
-    console.log('group name: ' + name)
 
     return (
       <div>

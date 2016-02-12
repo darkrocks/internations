@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { resetErrorMessage } from '../actions'
 import '../../style/style.styl'
 
 class App extends Component {
@@ -26,9 +25,6 @@ class App extends Component {
   }
 
   render() {
-
-    console.log('pathname: ' + JSON.stringify(this.props.routing));
-
     const groupsBtnClassName = this.props.routing.location.pathname === '/groups'? 'button-primary': '';
     const usersBtnClassName = this.props.routing.location.pathname === '/users'? 'button-primary': '';
 

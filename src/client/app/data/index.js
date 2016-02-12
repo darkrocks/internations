@@ -52,7 +52,7 @@ let users = [
 ]
 
 export function insertGroup (group) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var groupToAdd = {
       id: Math.floor(Math.random()* 1000),
       name: group.name
@@ -64,7 +64,7 @@ export function insertGroup (group) {
 }
 
 export function getGroups() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var groupModels = [];
 
     groups.forEach((g) => {
@@ -96,14 +96,14 @@ function groupToGroupDetails(group) {
 export function getGroupDetails(groupId) {
   groupId = parseInt(groupId)
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var group = find(groups, (g) => g.id === groupId);
     resolve(groupToGroupDetails(group));
   })
 }
 
 export function getUsers() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve(cloneDeep(users));
   })
 }
@@ -111,7 +111,7 @@ export function getUsers() {
 export function getUserDetails(userId) {
   userId = parseInt(userId)
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var userModel;
     var user = find(users, (u) => u.id === userId);
 
@@ -135,7 +135,7 @@ export function getUserDetails(userId) {
 }
 
 export function insertUser (user) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var userToAdd = {
       id: Math.floor(Math.random()* 1000),
       name: user.name
@@ -149,7 +149,7 @@ export function insertUser (user) {
 }
 
 export function saveUserToDb (user) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var dbUser = find(users, (u) => u.id === user.id);
     dbUser.name = user.name;
     dbUser.groups = user.groups.map((g) => g.id);
@@ -159,7 +159,7 @@ export function saveUserToDb (user) {
 }
 
 export function deleteUserFromDb(userId) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     users = users.filter((u) => u.id !== userId);
 
     resolve(cloneDeep(users));
@@ -167,7 +167,7 @@ export function deleteUserFromDb(userId) {
 }
 
 export function deleteGroupFromDb(groupId) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     groups = groups.filter((g) => g.id !== groupId);
 
     users.forEach((u) => {
@@ -179,7 +179,7 @@ export function deleteGroupFromDb(groupId) {
 }
 
 export function saveGroupToDb (group) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     var dbGroup = find(groups, (g) => g.id === group.id);
     dbGroup.name = group.name;
 

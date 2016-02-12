@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { saveUser, fetchGroups, fetchUserDetails, changeUser } from '../actions'
 import { Link } from 'react-router'
-import find from 'lodash/find'
 import EditUserForm from '../components/EditUserForm';
 
 class EditUserPage extends Component {
@@ -18,7 +17,6 @@ class EditUserPage extends Component {
   }
 
   saveUser(user) {
-    console.log('save user: ' + JSON.stringify(user));
     this.props.saveUser(user)
       .then(() => {
         this.props.push(`/users`);

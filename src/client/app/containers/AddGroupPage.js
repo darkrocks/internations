@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { addGroup, changeGroup, createEmptyGroup } from '../actions'
-import { Link } from 'react-router'
-import find from 'lodash/find'
 import EditGroupForm from '../components/EditGroupForm';
 
 class AddGroupPage extends Component {
@@ -50,7 +48,7 @@ AddGroupPage.propTypes = {
   changeGroup: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     group: state.groupForEdit
   }

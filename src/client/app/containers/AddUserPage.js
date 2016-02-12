@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { addUser, fetchGroups, changeUser, createEmptyUser } from '../actions'
-import { Link } from 'react-router'
-import find from 'lodash/find'
 import EditUserForm from '../components/EditUserForm';
 
 class AddUserPage extends Component {
@@ -53,7 +51,7 @@ AddUserPage.propTypes = {
   changeUser: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     user: state.userForEdit,
     allGroups: state.groups

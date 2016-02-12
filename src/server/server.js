@@ -6,7 +6,7 @@ var port = 3000
 
 app.use(express.static(__dirname + '/../../build/'));
 
-app.get(/^(.*)$/, function(req, res, next) {
+app.get(/^(.*)$/, function(req, res) {
   res.sendfile(path.resolve(__dirname + '/../../build/index.html'));
 })
 
