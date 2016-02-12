@@ -3,7 +3,7 @@ import { routeReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
 
-function groupForEdit(state = null, action) {
+export function groupForEdit(state = null, action) {
   switch (action.type) {
     case ActionTypes.EMPTY_GROUP_CREATED:
     case ActionTypes.GROUP_CHANGED:
@@ -14,6 +14,7 @@ function groupForEdit(state = null, action) {
 }
 
 function groups(state = [], action) {
+  console.log('action' + JSON.stringify(action));
   switch (action.type) {
     case ActionTypes.RECEIVE_GROUPS:
       return action.groups;
