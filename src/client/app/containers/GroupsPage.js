@@ -39,7 +39,7 @@ class GroupsPage extends Component {
           <div className="six columns ik-text-right">
             <Link to={`/groups/add`}>
               <button>
-                Add group
+                Create group
               </button>
             </Link>
           </div>

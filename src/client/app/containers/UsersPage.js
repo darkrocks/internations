@@ -25,38 +25,46 @@ class UsersPage extends Component {
 
     return (
       <div>
-        <Link to={`/users/add`}>
-          Add user
-        </Link>
-        Users
-        <table>
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-            {this.props.users.map((user) => {
-              function deleteUser() {
-                that.props.deleteUser(user.id);
-              }
+        <h4>Users</h4>
 
-              return (
-                <tr>
-                  <td>
-                    <Link to={`/users/${user.id}`}>
-                      {user.name}
-                    </Link>
-                  </td>
-                  <td>
-                    <button onClick={deleteUser}>Delete</button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="twelve columns">
+            <Link to={`/users/add`}>
+              <button>
+                Create user
+              </button>
+            </Link>
+
+            <table>
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              {this.props.users.map((user) => {
+                function deleteUser() {
+                  that.props.deleteUser(user.id);
+                }
+
+                return (
+                  <tr>
+                    <td>
+                      <Link to={`/users/${user.id}`}>
+                        {user.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <button onClick={deleteUser}>Delete</button>
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     )
   }
